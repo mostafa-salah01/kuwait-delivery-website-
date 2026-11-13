@@ -2,5 +2,14 @@
   "name": "kuwait-delivery-company",
   "private": true,
   "version": "1.0.0",
-  "description": "Static corporate website for Kuwait Delivery Company (GitHub Pages)"
+  "description": "Static corporate website for Kuwait Delivery Company (GitHub Pages)",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0",
+    "typescript": "^5.5.0"
+  }
 }

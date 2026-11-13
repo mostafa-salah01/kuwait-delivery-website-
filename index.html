@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title data-ar="الشركة الكويتية للتوصيل | حلول التوصيل واللوجستيات في مصر" data-en="Kuwait Delivery Company | Delivery & Logistics Solutions in Egypt">الشركة الكويتية للتوصيل | حلول التوصيل واللوجستيات في مصر</title>
   <meta name="description" data-ar="شركة باستثمار كويتي تحت التأسيس في مصر تقدم خدمات توريد المناديب لمنصات التوصيل والتجارة السريعة، وحلول الشحن واللوجستيات المتكاملة للتجار." data-en="A Kuwaiti-backed company under establishment in Egypt offering managed rider supply for delivery platforms and integrated shipping and logistics for merchants." content="شركة باستثمار كويتي تحت التأسيس في مصر تقدم خدمات توريد المناديب لمنصات التوصيل والتجارة السريعة، وحلول الشحن واللوجستيات المتكاملة للتجار.">
 
@@ -37,7 +37,7 @@
         <circle cx="56" cy="56" r="50"></circle>
       </svg>
       <div class="splash-badge">
-        <img src="images/logo.png" alt="الشركة الكويتية للتوصيل">
+        <img src="images/logo.png" alt="الشركة الكويتية للتوصيل" onerror="var w=this.closest('.splash-logo-wrap');if(w)w.style.display='none';">
       </div>
     </div>
     <p class="splash-title" data-ar="الشركة الكويتية للتوصيل" data-en="Kuwait Delivery Company">الشركة الكويتية للتوصيل</p>
@@ -47,7 +47,7 @@
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="brand">
-        <img src="images/logo.png" class="brand__logo" alt="شعار الشركة الكويتية للتوصيل" data-ar-alt="شعار الشركة الكويتية للتوصيل" data-en-alt="Kuwait Delivery Company Logo">
+        <img src="images/logo.png" class="brand__logo" alt="شعار الشركة الكويتية للتوصيل" data-ar-alt="شعار الشركة الكويتية للتوصيل" data-en-alt="Kuwait Delivery Company Logo" onerror="this.style.display='none'">
         <span class="brand__name" data-ar="الشركة الكويتية للتوصيل" data-en="Kuwait Delivery Company">الشركة الكويتية للتوصيل</span>
       </a>
 
@@ -66,9 +66,9 @@
         <a href="contact.html" class="btn btn--gold btn--sm header-cta" data-magnetic data-ar="اطلب عرض تعاون" data-en="Request Partnership">اطلب عرض تعاون</a>
         <button type="button" id="menu-toggle" class="menu-toggle" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobile-drawer">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-            <line x1="3" y1="7" x2="21" y2="7"></line>
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="17" x2="21" y2="17"></line>
+            <line class="menu-toggle__line menu-toggle__line--top" x1="3" y1="7" x2="21" y2="7"></line>
+            <line class="menu-toggle__line menu-toggle__line--mid" x1="3" y1="12" x2="21" y2="12"></line>
+            <line class="menu-toggle__line menu-toggle__line--bot" x1="3" y1="17" x2="21" y2="17"></line>
           </svg>
         </button>
       </div>
@@ -93,11 +93,11 @@
     <!-- Hero Section with Background Video -->
     <section class="hero">
       <div class="hero__media" aria-hidden="true">
-        <video class="hero__video" autoplay muted loop playsinline poster="images/home-hero.jpg">
-          <source src="video/home-hero-video.mp4" type="video/mp4">
+        <img src="images/home-hero.jpg" class="hero__bg-img" alt="">
+        <video class="hero__video" autoplay muted loop playsinline poster="images/home-hero.jpg" onerror="this.style.display='none'">
+          <source src="video/home-hero-video.mp4" type="video/mp4" onerror="var v=this.closest('video');if(v)v.style.display='none';">
         </video>
       </div>
-      <div class="hero__overlay" aria-hidden="true"></div>
 
       <div class="container">
         <div class="hero__content">
@@ -375,11 +375,10 @@
       <div class="cta-banner__bg" aria-hidden="true">
         <img src="images/home-contact-bg.jpg" loading="lazy" alt="فريق العمليات واللوجستيات بالشركة الكويتية للتوصيل" data-ar-alt="فريق العمليات واللوجستيات بالشركة الكويتية للتوصيل" data-en-alt="Kuwait Delivery Company operations team">
       </div>
-      <div class="cta-banner__overlay" aria-hidden="true"></div>
       <div class="container">
         <div class="cta-banner__inner">
-          <div class="logo-badge" style="margin-bottom: 20px;">
-            <img src="images/logo.png" loading="lazy" alt="الشركة الكويتية للتوصيل">
+          <div class="logo-badge">
+            <img src="images/logo.png" loading="lazy" alt="الشركة الكويتية للتوصيل" onerror="var b=this.closest('.logo-badge');if(b)b.style.display='none';">
           </div>
           <h2 class="cta-banner__title pen-write" data-ar="جاهزون لبناء شراكة تشغيلية طويلة الأمد في مصر" data-en="Ready to Build a Long-Term Operational Partnership in Egypt">جاهزون لبناء شراكة تشغيلية طويلة الأمد في مصر</h2>
           <p class="cta-banner__desc pen-write" data-ar="سواء كنتم منصة توصيل تبحث عن فرق مناديب مُدارة أو تاجراً يبحث عن شريك شحن موثوق، تواصلوا معنا لترتيب اجتماع تعريفي." data-en="Whether you are a delivery platform seeking managed rider capacity or a merchant seeking dependable logistics, connect with our team to discuss your requirements.">سواء كنتم منصة توصيل تبحث عن فرق مناديب مُدارة أو تاجراً يبحث عن شريك شحن موثوق، تواصلوا معنا لترتيب اجتماع تعريفي.</p>
@@ -395,7 +394,7 @@
       <div class="footer-grid">
         <div>
           <a href="index.html" class="brand">
-            <img src="images/logo.png" loading="lazy" class="brand__logo" alt="شعار الشركة الكويتية للتوصيل">
+            <img src="images/logo.png" loading="lazy" class="brand__logo" alt="شعار الشركة الكويتية للتوصيل" onerror="this.style.display='none'">
             <span class="brand__name" data-ar="الشركة الكويتية للتوصيل" data-en="Kuwait Delivery Company">الشركة الكويتية للتوصيل</span>
           </a>
           <p class="footer-brand__desc" data-ar="شركة باستثمار كويتي تحت التأسيس في جمهورية مصر العربية، متخصصة في توريد وإدارة المناديب لمنصات التوصيل وحلول الشحن واللوجستيات للتجار." data-en="A Kuwaiti-backed company under establishment in Egypt, specializing in managed rider supply for delivery platforms and logistics solutions for merchants.">شركة باستثمار كويتي تحت التأسيس في جمهورية مصر العربية، متخصصة في توريد وإدارة المناديب لمنصات التوصيل وحلول الشحن واللوجستيات للتجار.</p>

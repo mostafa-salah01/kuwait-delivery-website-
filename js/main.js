@@ -250,7 +250,7 @@ const PenWriter = (() => {
         textNode.nodeValue = fullText.slice(0, charCount);
       }
 
-      // Position pen nib right beside the last written character
+      // Position pen nib right beside the last written character, clamped inside element width
       try {
         let idx = charCount - 1;
         while (idx > 0 && fullText[idx] === ' ') {
@@ -264,10 +264,12 @@ const PenWriter = (() => {
         if (charRect.width > 0 || charRect.height > 0) {
           const jitterX = Math.sin(elapsed * 0.045) * 1.8;
           const jitterY = Math.cos(elapsed * 0.065) * 2.2;
-          const tipX = isRTL
+          const rawTipX = isRTL
             ? (charRect.left - elRect.left - 4 + jitterX)
             : (charRect.right - elRect.left - 2 + jitterX);
-          const tipY = (charRect.bottom - elRect.top - 26 + jitterY);
+          const maxTipX = Math.max(0, elRect.width - 28);
+          const tipX = Math.max(-2, Math.min(maxTipX, rawTipX));
+          const tipY = Math.max(-6, charRect.bottom - elRect.top - 26 + jitterY);
           const tilt = isRTL ? -10 : 8;
           nib.style.transform =
             'translate3d(' + tipX.toFixed(1) + 'px, ' + tipY.toFixed(1) + 'px, 0) rotate(' + tilt + 'deg)';
@@ -316,7 +318,7 @@ const PenWriter = (() => {
           }
         });
       },
-      { threshold: 0.18, rootMargin: '0px 0px -24px 0px' }
+      { threshold: 0.1, rootMargin: '0px 0px -16px 0px' }
     );
 
     targets.forEach((el) => {
@@ -437,7 +439,7 @@ function initSplashScreen() {
 }
 
 /* ==========================================================================
-   8. NAVIGATION, STICKY HEADER & MOBILE DRAWER
+   8. NAVIGATION, STICKY HEADER & FULLSCREEN MOBILE DRAWER
    ========================================================================== */
 function initHeaderAndNav() {
   const header = document.querySelector('.site-header');
@@ -467,26 +469,49 @@ function initHeaderAndNav() {
   }
 
   if (menuToggle && drawer) {
-    const closeDrawer = () => {
-      drawer.classList.remove('is-open');
-      menuToggle.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
+    const setScrollLock = (locked) => {
+      document.documentElement.classList.toggle('menu-open', locked);
+      document.body.classList.toggle('menu-open', locked);
     };
 
-    menuToggle.addEventListener('click', () => {
+    const closeDrawer = () => {
+      drawer.classList.remove('is-open');
+      menuToggle.classList.remove('is-active');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      setScrollLock(false);
+    };
+
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
       const isOpen = drawer.classList.toggle('is-open');
+      menuToggle.classList.toggle('is-active', isOpen);
       menuToggle.setAttribute('aria-expanded', String(isOpen));
-      document.body.style.overflow = isOpen ? 'hidden' : '';
+      setScrollLock(isOpen);
     });
 
     drawer.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', closeDrawer);
     });
 
+    // Close when tapping outside the navigation items/CTA inside the drawer or on header/outside
+    document.addEventListener('click', (e) => {
+      if (!drawer.classList.contains('is-open')) return;
+      if (menuToggle.contains(e.target)) return;
+      if (e.target === drawer || !drawer.contains(e.target)) {
+        closeDrawer();
+      }
+    });
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && drawer.classList.contains('is-open')) {
         closeDrawer();
         menuToggle.focus();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1080 && drawer.classList.contains('is-open')) {
+        closeDrawer();
       }
     });
   }
@@ -498,7 +523,6 @@ function initHeaderAndNav() {
 function initScrollEffects() {
   const progressBar = document.querySelector('.scroll-progress__bar');
   const heroMedia = document.querySelector('.hero__media');
-  const isMobile = window.innerWidth < 768;
 
   if (!progressBar && !heroMedia) return;
 
@@ -514,11 +538,15 @@ function initScrollEffects() {
       progressBar.style.transform = 'scaleX(' + ratio.toFixed(4) + ')';
     }
 
-    if (heroMedia && !prefersReducedMotion && !isMobile) {
-      const heroRect = heroMedia.parentElement.getBoundingClientRect();
-      if (heroRect.bottom > 0) {
-        const shift = Math.min(72, scrollY * 0.16);
-        heroMedia.style.transform = 'translate3d(0, ' + shift.toFixed(1) + 'px, 0)';
+    if (heroMedia) {
+      if (!prefersReducedMotion && window.innerWidth >= 768) {
+        const heroRect = heroMedia.parentElement.getBoundingClientRect();
+        if (heroRect.bottom > 0) {
+          const shift = Math.min(64, scrollY * 0.14);
+          heroMedia.style.transform = 'translate3d(0, ' + shift.toFixed(1) + 'px, 0)';
+        }
+      } else if (heroMedia.style.transform) {
+        heroMedia.style.transform = '';
       }
     }
   }
@@ -533,6 +561,13 @@ function initScrollEffects() {
     },
     { passive: true }
   );
+
+  window.addEventListener('resize', () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  });
 
   update();
 }
@@ -562,17 +597,22 @@ function initRevealObservers() {
         }
       });
     },
-    { threshold: 0.14, rootMargin: '0px 0px -24px 0px' }
+    { threshold: 0.12, rootMargin: '0px 0px -16px 0px' }
   );
 
   targets.forEach((el) => observer.observe(el));
 }
 
 /* ==========================================================================
-   11. MAGNETIC BUTTONS & 3D CARD TILT + GOLD SPOTLIGHT (Desktop Pointer Only)
+   11. MAGNETIC BUTTONS & 3D CARD TILT + GOLD SPOTLIGHT (Mouse Hover Only)
    ========================================================================== */
 function initPointerEffects() {
-  if (prefersReducedMotion || !window.matchMedia('(pointer: fine)').matches) return;
+  if (
+    prefersReducedMotion ||
+    !window.matchMedia('(hover: hover) and (pointer: fine)').matches
+  ) {
+    return;
+  }
 
   // Magnetic Buttons
   document.querySelectorAll('[data-magnetic]').forEach((btn) => {
@@ -619,7 +659,7 @@ function initAnimatedRoutes() {
   svgs.forEach((svg) => {
     const drawPath = svg.querySelector('.route-path-draw');
     const riderGroup = svg.querySelector('.route-rider-group');
-    if (!drawPath) return;
+    if (!drawPath || typeof drawPath.getTotalLength !== 'function') return;
 
     const totalLen = drawPath.getTotalLength();
     drawPath.style.strokeDasharray = totalLen;
@@ -681,18 +721,57 @@ function initAnimatedRoutes() {
 }
 
 /* ==========================================================================
-   13. IMAGE FALLBACKS & SMOOTH PAGE TRANSITIONS
+   13. IMAGE, LOGO & VIDEO FALLBACKS + SMOOTH PAGE TRANSITIONS
    ========================================================================== */
+function handleLogoFallback(img) {
+  const splashWrap = img.closest('.splash-logo-wrap');
+  if (splashWrap) {
+    splashWrap.style.display = 'none';
+    return;
+  }
+  const logoBadge = img.closest('.logo-badge');
+  if (logoBadge) {
+    logoBadge.style.display = 'none';
+    return;
+  }
+  img.style.display = 'none';
+}
+
 function initMediaFallbacks() {
+  // Content image frames
   document.querySelectorAll('.media-frame img').forEach((img) => {
     if (img.complete && img.naturalWidth === 0) {
-      img.closest('.media-frame').classList.add('is-broken');
+      const frame = img.closest('.media-frame');
+      if (frame) frame.classList.add('is-broken');
     }
     img.addEventListener('error', () => {
       const frame = img.closest('.media-frame');
       if (frame) frame.classList.add('is-broken');
     });
   });
+
+  // Logo images: show text-only company name without broken icon if logo fails to load
+  document.querySelectorAll('img[src*="logo.png"]').forEach((img) => {
+    if (img.complete && img.naturalWidth === 0) {
+      handleLogoFallback(img);
+    }
+    img.addEventListener('error', () => handleLogoFallback(img));
+  });
+
+  // Hero video fallback: keep images/home-hero.jpg visible if video fails
+  const heroVideo = document.querySelector('.hero__video');
+  if (heroVideo) {
+    const hideBrokenVideo = () => {
+      heroVideo.style.display = 'none';
+    };
+    if (heroVideo.error || heroVideo.networkState === 3) {
+      hideBrokenVideo();
+    }
+    heroVideo.addEventListener('error', hideBrokenVideo);
+    heroVideo.querySelectorAll('source').forEach((srcEl) => {
+      srcEl.addEventListener('error', hideBrokenVideo);
+    });
+  }
 }
 
 function initPageTransitions() {

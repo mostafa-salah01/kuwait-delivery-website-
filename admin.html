@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
   <title data-ar="بوابة الإدارة | الشركة الكويتية للتوصيل" data-en="Management Portal | Kuwait Delivery Company">بوابة الإدارة | الشركة الكويتية للتوصيل</title>
   <meta name="description" data-ar="بوابة الدخول المخصصة لإدارة العمليات في الشركة الكويتية للتوصيل." data-en="Dedicated management portal access for Kuwait Delivery Company operations." content="بوابة الدخول المخصصة لإدارة العمليات في الشركة الكويتية للتوصيل.">
@@ -28,7 +28,7 @@
   <header class="site-header">
     <div class="container header-inner">
       <a href="index.html" class="brand">
-        <img src="images/logo.png" class="brand__logo" alt="شعار الشركة الكويتية للتوصيل" data-ar-alt="شعار الشركة الكويتية للتوصيل" data-en-alt="Kuwait Delivery Company Logo">
+        <img src="images/logo.png" class="brand__logo" alt="شعار الشركة الكويتية للتوصيل" data-ar-alt="شعار الشركة الكويتية للتوصيل" data-en-alt="Kuwait Delivery Company Logo" onerror="this.style.display='none'">
         <span class="brand__name" data-ar="الشركة الكويتية للتوصيل" data-en="Kuwait Delivery Company">الشركة الكويتية للتوصيل</span>
       </a>
 
@@ -46,7 +46,7 @@
         <button type="button" class="lang-toggle">EN</button>
         <a href="contact.html" class="btn btn--gold btn--sm header-cta" data-magnetic data-ar="اطلب عرض تعاون" data-en="Request Partnership">اطلب عرض تعاون</a>
         <button type="button" id="menu-toggle" class="menu-toggle" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mobile-drawer">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="7" x2="21" y2="7"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="17" x2="21" y2="17"></line></svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line class="menu-toggle__line menu-toggle__line--top" x1="3" y1="7" x2="21" y2="7"></line><line class="menu-toggle__line menu-toggle__line--mid" x1="3" y1="12" x2="21" y2="12"></line><line class="menu-toggle__line menu-toggle__line--bot" x1="3" y1="17" x2="21" y2="17"></line></svg>
         </button>
       </div>
     </div>
@@ -70,21 +70,20 @@
       <div class="admin-shell__bg" aria-hidden="true">
         <img src="images/admin-login-bg.jpg" alt="خلفية بوابة الإدارة" data-ar-alt="خلفية بوابة الإدارة" data-en-alt="Management portal background">
       </div>
-      <div class="admin-shell__overlay" aria-hidden="true"></div>
 
       <div class="admin-card reveal is-visible">
-        <img src="images/logo.png" class="admin-card__logo" alt="شعار الشركة الكويتية للتوصيل">
+        <img src="images/logo.png" class="admin-card__logo" alt="شعار الشركة الكويتية للتوصيل" onerror="this.style.display='none'">
         <span class="eyebrow" data-ar="الشركة الكويتية للتوصيل" data-en="Kuwait Delivery Company">الشركة الكويتية للتوصيل</span>
         <h1 class="admin-card__title pen-write" data-ar="بوابة الإدارة" data-en="Management Portal">بوابة الإدارة</h1>
         <p class="admin-card__desc" data-ar="نقطة الوصول المركزية المخصصة لفريق الإدارة والعمليات للانتقال إلى نظام التشغيل الداخلي." data-en="Central access point for authorized management and operations staff to enter the internal system.">نقطة الوصول المركزية المخصصة لفريق الإدارة والعمليات للانتقال إلى نظام التشغيل الداخلي.</p>
 
         <!-- رابط نظام الإدارة: يُعدّل من الثابت ADMIN_SYSTEM_URL في أعلى ملف js/main.js لاحقاً -->
-        <a href="#" data-config-link="admin" class="btn btn--primary btn--lg" style="width: 100%;" data-magnetic>
+        <a href="#" data-config-link="admin" class="btn btn--primary btn--lg btn--full" data-magnetic>
           <span data-ar="الدخول إلى نظام الإدارة" data-en="Enter Management System">الدخول إلى نظام الإدارة</span>
           <svg class="icon-flip-ltr" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
         </a>
 
-        <div style="margin-top: 20px;">
+        <div class="admin-card__back">
           <a href="index.html" class="footer__link" data-ar="العودة إلى الموقع الرئيسي" data-en="Return to Main Website">العودة إلى الموقع الرئيسي</a>
         </div>
       </div>
@@ -97,7 +96,7 @@
       <div class="footer-grid">
         <div>
           <a href="index.html" class="brand">
-            <img src="images/logo.png" loading="lazy" class="brand__logo" alt="شعار الشركة الكويتية للتوصيل">
+            <img src="images/logo.png" loading="lazy" class="brand__logo" alt="شعار الشركة الكويتية للتوصيل" onerror="this.style.display='none'">
             <span class="brand__name" data-ar="الشركة الكويتية للتوصيل" data-en="Kuwait Delivery Company">الشركة الكويتية للتوصيل</span>
           </a>
           <p class="footer-brand__desc" data-ar="شركة باستثمار كويتي تحت التأسيس في جمهورية مصر العربية، متخصصة في توريد وإدارة المناديب لمنصات التوصيل وحلول الشحن واللوجستيات للتجار." data-en="A Kuwaiti-backed company under establishment in Egypt, specializing in managed rider supply for delivery platforms and logistics solutions for merchants.">شركة باستثمار كويتي تحت التأسيس في جمهورية مصر العربية، متخصصة في توريد وإدارة المناديب لمنصات التوصيل وحلول الشحن واللوجستيات للتجار.</p>
