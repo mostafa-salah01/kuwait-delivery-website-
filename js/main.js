@@ -751,14 +751,14 @@ function initMediaFallbacks() {
   });
 
   // Logo images: show text-only company name without broken icon if logo fails to load
-  document.querySelectorAll('img[src*="logo.png"]').forEach((img) => {
+  document.querySelectorAll('img[src*="logo-icon.png"], img[src*="logo.png"]').forEach((img) => {
     if (img.complete && img.naturalWidth === 0) {
       handleLogoFallback(img);
     }
     img.addEventListener('error', () => handleLogoFallback(img));
   });
 
-  // Hero video fallback: keep images/home-hero.jpg visible if video fails
+  // Hero video fallback: keep images/home-hero.jpg visible if all video sources fail
   const heroVideo = document.querySelector('.hero__video');
   if (heroVideo) {
     const hideBrokenVideo = () => {
@@ -768,9 +768,18 @@ function initMediaFallbacks() {
       hideBrokenVideo();
     }
     heroVideo.addEventListener('error', hideBrokenVideo);
-    heroVideo.querySelectorAll('source').forEach((srcEl) => {
-      srcEl.addEventListener('error', hideBrokenVideo);
-    });
+    const sources = heroVideo.querySelectorAll('source');
+    if (sources.length) {
+      let failedCount = 0;
+      sources.forEach((srcEl) => {
+        srcEl.addEventListener('error', () => {
+          failedCount++;
+          if (failedCount >= sources.length) {
+            hideBrokenVideo();
+          }
+        });
+      });
+    }
   }
 }
 

@@ -806,9 +806,9 @@ ol {
 }
 
 .btn--outline-white {
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: rgba(0, 0, 0, 0.34);
   color: var(--color-white);
-  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
 }
 
 .btn--outline-primary {
@@ -858,30 +858,28 @@ ol {
 }
 
 /* ==========================================================================
-   Hero Section (Natural Video/Photo + Crisp Readable Panel, Zero Green Tint)
+   Hero Section (Natural Full-Bleed Video/Photo, Zero Green Background/Overlay)
    ========================================================================== */
 .hero {
   position: relative;
   min-height: calc(100vh - var(--header-height));
   min-height: calc(100svh - var(--header-height));
   display: flex;
-  flex-direction: column;
-  overflow-x: clip;
-  overflow-y: visible;
-  background-color: var(--color-cream);
-  padding: 0 0 28px 0;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #14231E;
+  padding-block: clamp(48px, 7vw, 88px) clamp(64px, 9vw, 120px);
 }
 
 .hero__media {
-  position: relative;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  aspect-ratio: 16 / 10;
-  min-height: 210px;
-  max-height: 44svh;
+  height: 100%;
   z-index: 0;
   overflow: hidden;
-  background-color: var(--color-cream-alt);
-  flex-shrink: 0;
+  background-color: #14231E;
 }
 
 .hero__bg-img,
@@ -904,8 +902,6 @@ ol {
 .hero > .container {
   position: relative;
   z-index: 2;
-  margin-top: -24px;
-  flex: 1;
   display: flex;
   align-items: center;
 }
@@ -914,16 +910,16 @@ ol {
   position: relative;
   width: 100%;
   max-width: 720px;
-  background-color: var(--color-primary-dark);
   color: var(--color-white);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border-gold);
-  box-shadow: 0 20px 50px rgba(10, 58, 45, 0.24);
-  padding: clamp(22px, 4vw, 44px);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
 }
 
 .hero__content .eyebrow {
   color: var(--color-gold-light);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85), 0 1px 3px rgba(0, 0, 0, 0.9);
 }
 
 .hero__title {
@@ -932,13 +928,15 @@ ol {
   line-height: 1.26;
   margin-bottom: 16px;
   color: var(--color-white);
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.8), 0 1px 4px rgba(0, 0, 0, 0.9);
   text-wrap: balance;
   overflow-wrap: break-word;
 }
 
 .hero__subtitle {
   font-size: clamp(0.96875rem, 1.1vw + 0.72rem, 1.1875rem);
-  color: rgba(255, 255, 255, 0.92);
+  color: var(--color-white);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85), 0 1px 4px rgba(0, 0, 0, 0.9);
   line-height: 1.78;
   margin-bottom: 26px;
   max-width: 650px;
@@ -968,26 +966,11 @@ ol {
 }
 
 @media (min-width: 768px) {
-  .hero {
-    justify-content: center;
-    padding-block: clamp(56px, 7vw, 88px) clamp(88px, 9vw, 120px);
-    background-color: var(--color-cream-alt);
-    overflow: hidden;
-  }
-
   .hero__media {
-    position: absolute;
     inset: -5% 0;
     width: auto;
-    aspect-ratio: auto;
-    min-height: 0;
-    max-height: none;
+    height: auto;
     will-change: transform;
-  }
-
-  .hero > .container {
-    margin-top: 0;
-    flex: initial;
   }
 }
 
@@ -997,23 +980,21 @@ ol {
   background-color: var(--color-primary-dark);
   color: var(--color-white);
   padding-block: clamp(44px, 6vw, 76px);
-  overflow-x: clip;
+  overflow: hidden;
 }
 
 .page-hero--with-bg {
-  background-color: var(--color-cream);
-  padding: 0 0 36px 0;
+  background-color: #14231E;
+  padding-block: clamp(56px, 7vw, 96px);
 }
 
 .page-hero__bg {
-  position: relative;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  min-height: 190px;
-  max-height: 40svh;
+  height: 100%;
   z-index: 0;
   overflow: hidden;
-  background-color: var(--color-cream-alt);
 }
 
 .page-hero__bg img {
@@ -1025,7 +1006,6 @@ ol {
 .page-hero--with-bg .container {
   position: relative;
   z-index: 2;
-  margin-top: -24px;
 }
 
 .page-hero__inner {
@@ -1035,16 +1015,21 @@ ol {
 }
 
 .page-hero--with-bg .page-hero__inner {
-  background-color: var(--color-primary-dark);
+  background: transparent;
   color: var(--color-white);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border-gold);
-  box-shadow: 0 18px 44px rgba(10, 58, 45, 0.22);
-  padding: clamp(22px, 4vw, 40px);
+  border: none;
+  box-shadow: none;
+  padding: 0;
 }
 
 .page-hero__inner .eyebrow {
   color: var(--color-gold-light);
+}
+
+.page-hero--with-bg .eyebrow,
+.page-hero--with-bg .page-hero__title,
+.page-hero--with-bg .page-hero__desc {
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85), 0 1px 4px rgba(0, 0, 0, 0.9);
 }
 
 .page-hero__title {
@@ -1058,29 +1043,9 @@ ol {
 
 .page-hero__desc {
   font-size: clamp(0.96875rem, 1vw + 0.72rem, 1.125rem);
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.96);
   line-height: 1.75;
   overflow-wrap: break-word;
-}
-
-@media (min-width: 768px) {
-  .page-hero--with-bg {
-    padding-block: clamp(64px, 7vw, 96px);
-    background-color: var(--color-cream-alt);
-  }
-
-  .page-hero__bg {
-    position: absolute;
-    inset: 0;
-    width: auto;
-    aspect-ratio: auto;
-    min-height: 0;
-    max-height: none;
-  }
-
-  .page-hero--with-bg .container {
-    margin-top: 0;
-  }
 }
 
 /* Dark-section White Logo Badge */
@@ -1722,24 +1687,22 @@ ol {
 }
 
 /* ==========================================================================
-   CTA Full-Width Banner (Natural Image + Solid Dark Panel, Zero Green Tint)
+   CTA Full-Width Banner (Natural Image, Zero Green Background/Overlay)
    ========================================================================== */
 .cta-banner {
   position: relative;
-  padding: 0 0 40px 0;
-  background-color: var(--color-cream);
-  overflow-x: clip;
+  padding-block: clamp(56px, 7vw, 96px);
+  background-color: #14231E;
+  overflow: hidden;
 }
 
 .cta-banner__bg {
-  position: relative;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  min-height: 190px;
-  max-height: 40svh;
+  height: 100%;
   z-index: 0;
   overflow: hidden;
-  background-color: var(--color-cream-alt);
 }
 
 .cta-banner__bg img {
@@ -1751,7 +1714,6 @@ ol {
 .cta-banner .container {
   position: relative;
   z-index: 2;
-  margin-top: -24px;
 }
 
 .cta-banner__inner {
@@ -1759,12 +1721,11 @@ ol {
   max-width: 740px;
   margin-inline: auto;
   text-align: center;
-  background-color: var(--color-primary-dark);
+  background: transparent;
   color: var(--color-white);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border-gold);
-  box-shadow: 0 20px 50px rgba(10, 58, 45, 0.22);
-  padding: clamp(26px, 4.5vw, 48px) clamp(20px, 4vw, 44px);
+  border: none;
+  box-shadow: none;
+  padding: 0;
 }
 
 .cta-banner__title {
@@ -1773,34 +1734,16 @@ ol {
   line-height: 1.3;
   margin-bottom: 14px;
   color: var(--color-white);
+  text-shadow: 0 3px 16px rgba(0, 0, 0, 0.85), 0 1px 4px rgba(0, 0, 0, 0.9);
   overflow-wrap: break-word;
 }
 
 .cta-banner__desc {
   font-size: clamp(0.96875rem, 1vw + 0.72rem, 1.125rem);
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-white);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85), 0 1px 4px rgba(0, 0, 0, 0.9);
   margin-bottom: 28px;
   overflow-wrap: break-word;
-}
-
-@media (min-width: 768px) {
-  .cta-banner {
-    padding-block: clamp(68px, 8vw, 96px);
-    background-color: var(--color-cream-alt);
-  }
-
-  .cta-banner__bg {
-    position: absolute;
-    inset: 0;
-    width: auto;
-    aspect-ratio: auto;
-    min-height: 0;
-    max-height: none;
-  }
-
-  .cta-banner .container {
-    margin-top: 0;
-  }
 }
 
 /* ==========================================================================
